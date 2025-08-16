@@ -21,12 +21,12 @@ Features
 
     Bulk Analysis: Option to analyze multiple resumes at once for recruiters or hiring managers.
 
+<img width="1334" height="622" alt="AI-Powered Resume Analyzer - Personal - Microsoft​main" src="https://github.com/user-attachments/assets/6465e269-e0f8-4bd2-8ee7-7b91e729ea80" />
+
 <img width="448" height="474" alt="AI-Powered Resume Analyzer - Personal - Microsoft​90" src="https://github.com/user-attachments/assets/0d010415-e5ae-484c-9da5-ae2525de4808" />
     
 <img width="1196" height="498" alt="AI-Powered Resume Analyzer - Personal - Microsoft​9" src="https://github.com/user-attachments/assets/6d06441f-4fb6-4d55-a294-bc8202539b3a" />
     
-<img width="1334" height="622" alt="AI-Powered Resume Analyzer - Personal - Microsoft​main" src="https://github.com/user-attachments/assets/6465e269-e0f8-4bd2-8ee7-7b91e729ea80" />
-
 <img width="388" height="395" alt="AI-Powered Resume Analyzer - Personal - Microsoft​7" src="https://github.com/user-attachments/assets/71f5d6c7-8d31-4173-83b1-0559009f78af" />
 
 <img width="441" height="523" alt="AI-Powered Resume Analyzer - Personal - Microsoft​6" src="https://github.com/user-attachments/assets/64925c5b-71ba-4381-961e-9a3e920ff68f" />
