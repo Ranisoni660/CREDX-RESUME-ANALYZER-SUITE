@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Resume Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <section id="landingPage" class="landing-page">
+  <div class="container">
+    <div class="landing-container">
+      
+      <!-- Left Content -->
+      <div class="landing-content">
+        <h1>AI-Powered Resume Analyzer</h1>
+        <p>
+          Instantly check ATS compatibility, detect skill gaps, and get actionable recommendations 
+          to make your resume job-ready.
+        </p>
+        <ul class="feature-list">
+          <li><span>✓</span> ATS compatibility check</li>
+          <li><span>✓</span> Skill gap insights</li>
+          <li><span>✓</span> Personalized tips</li>
+          <li><span>✓</span> Job-role match scoring</li>
+        </ul>
+        <div class="button-group">
+          <button onclick="startAnalysis()" class="start-btn">
+            <span>🚀</span>
+            Start Analysis
+          </button>
+          <button onclick="startBulkAnalysis()" class="start-btn bulk-btn">
+            <span>📂</span>
+            Bulk Analysis
+          </button>
+        </div>
+      </div>
+
+      <div class="landing-image">
+    <img src="{{ url_for('static', filename='gg.png') }}" 
+         alt="Resume Analysis Illustration" 
+         style="max-width: 480px; width: 100%; height: auto; border-radius: 12px;">
+</div>
+    </div>
+  </div>
+</section>
+
+    <!-- Main Analyzer Section -->
+    <section class="analyzer-section" id="analyzerSection" style="display: none;">
+        <div class="container">
+        <div class="main-layout">
+            <!-- Left Panel - Inputs -->
+            <div class="panel">
+                <h2>
+                    <span>🔍</span>
+                    Resume Match Analyzer
+                </h2>
+                <p class="panel-subtitle">Upload your resume and select a job role to get instant feedback.</p>
+                
+                <form id="analyzerForm">
+                    <div class="form-group">
+                        <label for="category">
+                            <span>🏢</span>
+                            Select Category
+                        </label>
+                        <select id="category" name="category">
+                            <option value="">Choose a category...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subcategory">
+                            <span>📂</span>
+                            Select Subcategory
+                        </label>
+                        <select id="subcategory" name="subcategory" disabled>
+                            <option value="">First select a category...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobRole">
+                            <span>👤</span>
+                            Select Job Role
+                        </label>
+                        <select id="jobRole" name="jobRole" disabled>
+                            <option value="">First select a subcategory...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobDescription">
+                            <span>📝</span>
+                            Paste Job Description here (optional)
+                        </label>
+                        <textarea id="jobDescription" name="jobDescription" placeholder="Paste the job description here to get more accurate analysis..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <span>📤</span>
+                            Upload Resume (PDF/DOCX)
+                        </label>
+                        <div class="file-upload">
+                            <input type="file" id="resumeFile" name="resumeFile" accept=".pdf,.docx">
+                            <label for="resumeFile" class="file-upload-label">
+                                <span id="fileLabel">📄 Click to select file or drag and drop</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="analyze-btn" id="analyzeBtn">
+                        <span class="spinner"></span>
+                        <span id="btnText">
+                            <span>🔍</span>
+                            Analyze Resume
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Panel - Quick Results -->
+            <div class="panel">
+                <h2>
+                    <span>⚡</span>
+                    Quick Results
+                </h2>
+                <p class="panel-subtitle">Real-time analysis results will appear here.</p>
+                
+                <div class="gauge-container">
+                    <div class="gauge" id="matchGauge">
+                        <div class="gauge-text" id="matchScore">0%</div>
+                    </div>
+                    <p class="gauge-label">Match Score</p>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>
+                            <span>🎯</span>
+                            Resume Grade
+                        </h4>
+                        <div class="result-value" id="resumeGrade">-</div>
+                    </div>
+                    <div class="result-box">
+                        <h4>
+                            <span>🛡️</span>
+                            ATS Health
+                        </h4>
+                        <div class="result-value" id="atsHealth">-</div>
+                    </div>
+                </div>
+
+                <div class="skills-section">
+                    <div class="skills-grid">
+                        <div class="skills-box matched-skills">
+                            <h4>
+                                <span>✅</span>
+                                Matched Skills
+                            </h4>
+                            <div class="skills-list" id="matchedSkills">
+                                <span class="skill-tag" style="opacity: 0.5;">Upload and analyze to see results</span>
+                            </div>
+                        </div>
+                        <div class="skills-box missing-skills">
+                            <h4>
+                                <span>❌</span>
+                                Missing Skills
+                            </h4>
+                            <div class="skills-list" id="missingSkills">
+                                <span class="skill-tag" style="opacity: 0.5;">Upload and analyze to see results</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="keywords-section">
+                        <h4>
+                            <span>🔍</span>
+                            Keywords Used
+                        </h4>
+                        <div class="skills-list" id="keywordsUsed">
+                            <span class="skill-tag" style="opacity: 0.5;">Upload and analyze to see results</span>
+                        </div>
+                    </div>
+
+                    <button class="detailed-analysis-btn" id="showDetailedAnalysis">
+                        <span>🔍</span>
+                        Detailed Analysis
+                    </button>
+
+                    <button class="recommendations-btn" id="showRecommendations">
+                        <span>💡</span>
+                        Show Recommendations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <h2>
+                <span>📊</span>
+                Detailed Dashboard
+            </h2>
+            
+            <!-- Job Description Display -->
+            <div class="jd-display">
+                <h3>
+                    <span>📋</span>
+                    Selected Job Description
+                </h3>
+                <div class="jd-content" id="jdContent">
+                    <p class="text-secondary" id="jdPlaceholder">
+                        Select a job role and analyze your resume to see the job description here, 
+                        or paste your own in the form above to get detailed analysis.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>
+                        <span>🎯</span>
+                        Resume Skills vs JD Skills
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>
+                        <span>📈</span>
+                        Top Job Role Matches
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>
+                        <span>🔍</span>
+                        Issues Breakdown
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collapsible Cards -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <h3>
+                            <span>🔧</span>
+                            Issues Breakdown
+                        </h3>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Work Experience (15% issues):</strong> Consider adding more quantifiable achievements and specific metrics to demonstrate impact.</p>
+                        <p><strong>Education (5% issues):</strong> Include relevant coursework or certifications that align with the job requirements.</p>
+                        <p><strong>Skills (25% issues):</strong> Add technical skills mentioned in the job description, particularly relevant tools and technologies.</p>
+                        <p><strong>ATS Compatibility (10% issues):</strong> Use standard section headings and avoid complex formatting that might confuse ATS systems.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <h3>
+                            <span>💡</span>
+                            Recommendations
+                        </h3>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>1. Quantify Achievements:</strong> Add specific numbers and percentages to your accomplishments to demonstrate impact.</p>
+                        <p><strong>2. Add Missing Keywords:</strong> Include relevant industry terms and skills naturally throughout your content.</p>
+                        <p><strong>3. Technical Skills Section:</strong> Create a dedicated section for technical skills and list programming languages, tools, and platforms.</p>
+                        <p><strong>4. Project Examples:</strong> Include 2-3 relevant projects with brief descriptions of tools used and outcomes achieved.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <h3>
+                            <span>📚</span>
+                            Suggested Courses
+                        </h3>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="course-tabs">
+                            <button class="tab-btn active" onclick="showTab(event, 'freeCourses')">
+                                <span>🆓</span>
+                                Free Courses
+                            </button>
+                            <button class="tab-btn" onclick="showTab(event, 'paidCourses')">
+                                <span>💳</span>
+                                Paid Courses
+                            </button>
+                        </div>
+                        <div id="freeCourses" class="tab-content active">
+                            <p><strong>• Online Learning Platforms</strong> - Free tutorials and courses</p>
+                            <p><strong>• Industry Documentation</strong> - Official guides and best practices</p>
+                            <p><strong>• Community Resources</strong> - Forums and knowledge sharing</p>
+                            <p><strong>• Open Source Projects</strong> - Hands-on learning opportunities</p>
+                        </div>
+                        <div id="paidCourses" class="tab-content">
+                            <p><strong>• Professional Certifications</strong> - Industry-recognized credentials</p>
+                            <p><strong>• Specialized Training Programs</strong> - Comprehensive skill development</p>
+                            <p><strong>• Bootcamps and Intensive Courses</strong> - Accelerated learning paths</p>
+                            <p><strong>• Mentorship Programs</strong> - Personalized guidance and support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="download-btn" id="downloadBtn" style="display: none;">
+                <span>📥</span>
+                Download Report
+            </a>
+        </div>
+    </section>
+
+    <!-- Recommendations Modal -->
+    <div id="recommendationsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <span>🚀</span>
+                    Personalized Recommendations
+                </h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>
+                    <span>🎯</span>
+                    Top Recommendations to Improve Your Resume:
+                </h3>
+                <ul class="recommendations-list">
+                    <li><strong>📊 Add Quantifiable Achievements:</strong> Include specific metrics and numbers to demonstrate the impact of your work and showcase measurable results.</li>
+                    <li><strong>🔧 Include Missing Technical Skills:</strong> Add relevant tools and technologies mentioned in the job description to better match requirements.</li>
+                    <li><strong>🤖 Optimize for ATS:</strong> Use standard section headers and simple formatting for better parsing by applicant tracking systems.</li>
+                    <li><strong>🎯 Add Relevant Keywords:</strong> Naturally incorporate industry-specific terms and skills throughout your resume content.</li>
+                    <li><strong>💼 Include Relevant Projects:</strong> Showcase 2-3 projects with brief descriptions of tools used and business outcomes achieved.</li>
+                    <li><strong>⚡ Improve Skills Section:</strong> Create a dedicated technical skills section listing relevant tools, languages, and technologies.</li>
+                    <li><strong>✨ Enhance Professional Summary:</strong> Write a compelling summary that highlights your expertise and aligns with job requirements.</li>
+                    <li><strong>🏆 Add Certifications:</strong> Include relevant certifications and professional credentials that demonstrate your qualifications.</li>
+                </ul>
+
+                <h3>
+                    <span>📈</span>
+                    Skills Gap Analysis:
+                </h3>
+                <div class="modal-charts-grid">
+                    <div class="modal-chart-card">
+                        <h4>Skills Improvement Priority</h4>
+                        <div class="chart-container-modal">
+                            <canvas id="modalPriorityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="modal-chart-card">
+                        <h4>Learning Time Investment</h4>
+                        <div class="chart-container-modal">
+                            <canvas id="modalTimeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>
+                    <span>📚</span>
+                    Learning Resources:
+                </h3>
+                <div class="course-tabs">
+                    <button class="tab-btn active" onclick="showModalTab(event, 'modalFreeCourses')">
+                        <span>🆓</span>
+                        Free Resources
+                    </button>
+                    <button class="tab-btn" onclick="showModalTab(event, 'modalPaidCourses')">
+                        <span>💎</span>
+                        Premium Courses
+                    </button>
+                </div>
+                <div id="modalFreeCourses" class="tab-content active">
+                    <h4>
+                        <span>🆓</span>
+                        Free Learning Options:
+                    </h4>
+                    <ul>
+                        <li><strong>🎓 Online Learning Platforms</strong> - Interactive tutorials and free courses</li>
+                        <li><strong>📖 Industry Documentation</strong> - Official guides and best practices</li>
+                        <li><strong>🌐 Community Resources</strong> - Forums, wikis, and knowledge sharing</li>
+                        <li><strong>💻 Open Source Projects</strong> - Hands-on learning and contribution opportunities</li>
+                        <li><strong>🎬 Video Tutorials</strong> - Comprehensive programming and skill tutorials</li>
+                    </ul>
+                </div>
+                <div id="modalPaidCourses" class="tab-content">
+                    <h4>
+                        <span>💎</span>
+                        Premium Learning Options:
+                    </h4>
+                    <ul>
+                        <li><strong>🏆 Professional Certifications</strong> - Industry-recognized credentials and qualifications</li>
+                        <li><strong>🎯 Specialized Training Programs</strong> - Comprehensive skill development courses</li>
+                        <li><strong>⚡ Bootcamps and Intensive Courses</strong> - Accelerated learning paths with job placement</li>
+                        <li><strong>👨‍🏫 Mentorship Programs</strong> - Personalized guidance and career support</li>
+                        <li><strong>🎓 University Courses</strong> - Accredited programs and degree-level education</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

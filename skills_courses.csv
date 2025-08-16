@@ -1,0 +1,84 @@
+skill,sector,free_course,paid_course_1,paid_course_2,paid_course_3
+Python,Tech,FreeCodeCamp Python Tutorial,Coursera Python for Everybody Specialization,Udemy The Complete Python Bootcamp,edX Python for Data Science
+SQL,Tech,SQL for Data Science (Coursera Audit),Udemy The Complete SQL Bootcamp,Coursera SQL for Data Science Specialization,edX SQL for Data Analysis
+JavaScript,Tech,JavaScript Tutorial for Beginners (YouTube - Traversy Media),Udemy The Complete JavaScript Course,Coursera JavaScript for Developers,LinkedIn Learning JavaScript Essentials
+Web Development,Tech,FreeCodeCamp Full Stack Web Development,Coursera Web Development with HTML, CSS, JavaScript,Udemy The Web Developer Bootcamp,edX Front-End Web Developer
+Data Analysis,Tech,Data Analysis with Python (FreeCodeCamp),Coursera Data Analysis with Python Specialization,Udemy Data Analysis with Pandas and Python,edX Data Analytics for Business
+Machine Learning,Tech,Stanford Online Machine Learning (edX Audit),Coursera Machine Learning by Andrew Ng,Udemy Machine Learning A-Z,edX Machine Learning with Python
+Cybersecurity,Tech,Introduction to Cybersecurity (Cybrary),CompTIA Security+ Certification,Coursera Cybersecurity Specialization,EC-Council Certified Ethical Hacker (CEH)
+Cloud Computing,Tech,AWS Fundamentals (AWS Skill Builder),AWS Certified Solutions Architect (Udemy),Coursera Google Cloud Platform Fundamentals,Microsoft Azure Fundamentals AZ-900
+DevOps,Tech,Introduction to DevOps (edX Audit),Udemy DevOps MasterClass: CI/CD with Jenkins, Docker, Kubernetes,Coursera DevOps on AWS Specialization,edX DevOps for Developers
+Mobile App Development,Tech,Android Development Tutorial (YouTube - The Net Ninja),Udemy The Complete Android Developer Course,Coursera iOS App Development with Swift,edX Mobile App Development with React Native
+Communication,Non-Tech,Effective Communication Skills (Alison),LinkedIn Learning Communication Foundations,Coursera Effective Business Communication,Udemy Communication Skills Masterclass
+Leadership,Non-Tech,Leadership Skills (edX Audit),Coursera Leading People and Teams Specialization,LinkedIn Learning Leadership Foundations,Udemy Leadership and Management Training
+Time Management,Non-Tech,Time Management for Personal & Professional Productivity (Coursera Audit),Udemy Time Management Mastery,LinkedIn Learning Time Management Fundamentals,Coursera Work Smarter, Not Harder
+Problem Solving,Non-Tech,Creative Problem Solving (Alison),LinkedIn Learning Critical Thinking and Problem Solving,Coursera Creative Problem Solving,Udemy Problem Solving Techniques
+Team Collaboration,Non-Tech,Teamwork Skills (FutureLearn),Coursera Teamwork and Collaboration Specialization,LinkedIn Learning Teamwork Foundations,Udemy Collaboration and Team Dynamics
+Public Speaking,Non-Tech,Public Speaking Foundations (YouTube - Communication Coach),LinkedIn Learning Public Speaking Foundations,Coursera Dynamic Public Speaking,Udemy Public Speaking Masterclass
+Writing Skills,Non-Tech,Business Writing (edX Audit),Coursera Business Writing Specialization,LinkedIn Learning Writing for Business,Udemy Business Writing Mastery
+Project Management,Business,Introduction to Project Management (Alison),PMP Certification Training (Udemy),Coursera Project Management Principles and Practices,edX Professional Certificate in Project Management
+Agile Methodology,Business,Agile Development (edX Audit),Professional Scrum Master (Scrum.org),Coursera Agile Project Management,Udemy Agile Project Management with Scrum
+Business Analysis,Business,Business Analysis Fundamentals (YouTube - Bridging the Gap),CBAP Certification Training (Udemy),Coursera Business Analysis & Process Management,edX Business Analysis Professional
+Entrepreneurship,Business,How to Start a Business (Alison),Coursera Entrepreneurship Specialization,Udemy The Complete Entrepreneurship Course,LinkedIn Learning Entrepreneurship Foundations
+Supply Chain Management,Business,Supply Chain Basics (edX Audit),APICS Certified Supply Chain Professional (CSCP),Coursera Supply Chain Management Specialization,Udemy Supply Chain Management Masterclass
+Customer Service,Business,Customer Service Training (Alison),LinkedIn Learning Customer Service Foundations,Coursera Customer Service Specialization,Udemy Customer Service Mastery
+Digital Marketing,Marketing,Digital Marketing Fundamentals (Google Digital Garage),Coursera Digital Marketing Specialization,Udemy The Complete Digital Marketing Course,Google Digital Marketing Certification
+SEO,Marketing,SEO Training (YouTube - Ahrefs),Udemy The Complete SEO Course,Coursera Search Engine Optimization Specialization,LinkedIn Learning SEO Foundations
+Social Media Marketing,Marketing,Social Media Marketing (HubSpot Academy),Coursera Social Media Marketing Specialization,Udemy Social Media Marketing Mastery,Hootsuite Social Marketing Certification
+Content Marketing,Marketing,Content Marketing Masterclass (YouTube - AnsonAlex),Udemy Content Marketing Certification,Coursera Content Marketing Strategy,LinkedIn Learning Content Marketing Foundations
+Email Marketing,Marketing,Email Marketing Basics (HubSpot Academy),Coursera Email Marketing Specialization,Udemy Email Marketing Mastery,LinkedIn Learning Email Marketing Strategy
+Graphic Design,Marketing,Graphic Design Basics (Canva Design School),Udemy Graphic Design Masterclass,Coursera Graphic Design Specialization,LinkedIn Learning Graphic Design Foundations
+Financial Analysis,Finance,Financial Analysis Fundamentals (edX Audit),CFA Level I Prep Course (Udemy),Coursera Financial Analysis for Decision Making,edX Financial Analysis and Decision Making
+Accounting,Finance,Introduction to Financial Accounting (Coursera Audit),Coursera Financial Accounting Fundamentals,Udemy The Complete Financial Analyst Course,QuickBooks Online Certification
+Investment Banking,Finance,Investment Banking 101 (YouTube - Financial Analyst),Udemy Investment Banking Certification,Coursera Investment Banking Specialization,edX Investment Banking Essentials
+Personal Finance,Finance,Personal Finance Planning (Alison),Coursera Personal & Family Financial Planning,Udemy Personal Finance Masterclass,LinkedIn Learning Personal Finance Essentials
+Risk Management,Finance,Introduction to Risk Management (edX Audit),Professional Risk Manager (PRM) Certification,Coursera Risk Management Specialization,Udemy Risk Management for Professionals
+Healthcare Compliance,Healthcare,Healthcare Compliance Essentials (Alison),Coursera Healthcare Law and Compliance Specialization,CHC Certification (Compliance Certification Board),Udemy Healthcare Compliance Training
+Medical Coding,Healthcare,Medical Billing and Coding Basics (YouTube - Medical Coding with Bleu),CPC Certification Prep (Udemy),AAPC Certified Professional Coder (CPC),Coursera Medical Billing and Coding Fundamentals
+Nursing Skills,Healthcare,Introduction to Nursing (FutureLearn),Coursera Essentials of Nursing Practice,RN Licensure Prep (Kaplan),Udemy Nursing Fundamentals
+Health Informatics,Healthcare,Health Informatics Fundamentals (edX Audit),Coursera Health Informatics Specialization,edX Health Informatics Professional Certificate,AMIA Health Informatics Certification
+Patient Care,Healthcare,Patient Care Technician Training (Alison),Certified Patient Care Technician (CPCT) Course,Coursera Patient Care Specialization,Udemy Patient Care Technician Training
+Data Visualization,Tech,Data Visualization with Tableau (Coursera Audit),Tableau Desktop Specialist Certification,Coursera Data Visualization with Tableau Specialization,Udemy Tableau for Data Visualization
+Blockchain,Tech,Blockchain Basics (edX Audit),Coursera Blockchain Specialization,Udemy Blockchain and Bitcoin Fundamentals,edX Blockchain for Business
+AI Ethics,Tech,AI Ethics (FutureLearn),Coursera AI For Everyone,LinkedIn Learning AI Ethics and Governance,Udemy AI Ethics and Society
+Network Administration,Tech,Introduction to Networking (Cisco Networking Academy),CompTIA Network+ Certification,Coursera Network Administration Essentials,Cisco CCNA Certification
+Database Management,Tech,Database Management Essentials (Coursera Audit),Udemy The Complete Oracle SQL Certification Course,Coursera Database Management Specialization,edX Database Administration Fundamentals
+UI/UX Design,Tech,UI/UX Design Basics (YouTube - DesignCourse),Coursera UI/UX Design Specialization,Udemy The Complete UI/UX Design Bootcamp,edX UX Design Professional Certificate
+Game Development,Tech,Unity Game Development Tutorial (YouTube - Brackeys),Udemy The Complete Unity Developer Course,Coursera Game Design and Development Specialization,edX Game Development Fundamentals
+IoT Development,Tech,Introduction to IoT (edX Audit),Coursera Internet of Things Specialization,Udemy IoT Development Masterclass,edX IoT Programming and Big Data
+Negotiation Skills,Non-Tech,Negotiation Skills (Alison),Coursera Successful Negotiation: Essential Strategies and Skills,LinkedIn Learning Negotiation Foundations,Udemy Master Negotiation Techniques
+Emotional Intelligence,Non-Tech,Emotional Intelligence (FutureLearn),LinkedIn Learning Developing Emotional Intelligence,Coursera Emotional Intelligence in Leadership,Udemy Emotional Intelligence Mastery
+Conflict Resolution,Non-Tech,Conflict Management (Alison),Coursera Conflict Management Specialization,LinkedIn Learning Conflict Resolution Foundations,Udemy Conflict Resolution Techniques
+Presentation Skills,Non-Tech,Presentation Skills (YouTube - Conor Neill),LinkedIn Learning Presentation Skills: Public Speaking,Coursera Presentation Skills Specialization,Udemy Presentation Mastery
+Change Management,Business,Change Management Basics (edX Audit),Coursera Change Management Specialization,LinkedIn Learning Change Management Foundations,Udemy Change Management Training
+Strategic Planning,Business,Strategic Planning Fundamentals (Alison),LinkedIn Learning Strategic Planning Foundations,Coursera Strategic Management Specialization,Udemy Strategic Planning Masterclass
+Operations Management,Business,Operations Management Basics (edX Audit),Coursera Operations Management Specialization,Udemy Operations Management Masterclass,edX Operations Management Professional Certificate
+Product Management,Business,Product Management 101 (YouTube - Product School),Coursera Product Management Masterclass,Udemy Product Management Certification,edX Product Management with Lean, Agile and System Design
+Business Ethics,Business,Business Ethics for Managers (Alison),Coursera Business Ethics Specialization,LinkedIn Learning Business Ethics Foundations,Udemy Business Ethics and Compliance
+Pay-Per-Click Advertising,Marketing,PPC Fundamentals (Google Ads Academy),Udemy The Complete Google Ads Masterclass,Coursera Google Ads Certification,LinkedIn Learning PPC Advertising Essentials
+Branding,Marketing,Branding Basics (YouTube - The Futur),Coursera Brand Management Specialization,Udemy Branding Masterclass,LinkedIn Learning Brand Strategy Fundamentals
+Market Research,Marketing,Market Research Fundamentals (Coursera Audit),Udemy Market Research Masterclass,Coursera Market Research Specialization,LinkedIn Learning Market Research Foundations
+Video Editing,Marketing,Video Editing Basics (YouTube - Premiere Basics),Udemy Adobe Premiere Pro CC Masterclass,Coursera Video Production Specialization,LinkedIn Learning Video Editing with Adobe Premiere
+Influencer Marketing,Marketing,Influencer Marketing 101 (HubSpot Academy),Coursera Influencer Marketing Strategy,Udemy Influencer Marketing Masterclass,LinkedIn Learning Influencer Marketing Essentials
+Corporate Finance,Finance,Corporate Finance Essentials (edX Audit),Coursera Corporate Finance Specialization,Udemy Corporate Finance Masterclass,edX Corporate Finance Professional Certificate
+Tax Preparation,Finance,Tax Preparation Basics (YouTube - IRS Free File),Udemy Tax Preparation and Law,Coursera Federal Taxation Fundamentals,LinkedIn Learning Tax Preparation Essentials
+Financial Modeling,Finance,Financial Modeling Fundamentals (YouTube - Wall Street Prep),Coursera Financial Modeling Specialization,Udemy Financial Modeling Masterclass,edX Financial Modeling for Professionals
+Budgeting,Finance,Budgeting Basics (Alison),LinkedIn Learning Budgeting for Managers,Coursera Budgeting and Finance for Managers,Udemy Budgeting and Financial Planning
+Auditing,Finance,Auditing Fundamentals (edX Audit),Coursera Auditing Specialization,Udemy Auditing and Assurance Services,edX Auditing Professional Certificate
+Medical Terminology,Healthcare,Medical Terminology (Alison),Coursera Medical Terminology Specialization,CPC Medical Terminology Certification,Udemy Medical Terminology Masterclass
+Pharmacy Technician,Healthcare,Pharmacy Technician Basics (YouTube - FreeCE),Certified Pharmacy Technician (CPhT) Course,Coursera Pharmacy Technician Fundamentals,Udemy Pharmacy Technician Training
+Health and Safety,Healthcare,Workplace Health and Safety (Alison),OSHA 30-Hour General Industry Certification,Coursera Occupational Health and Safety,Udemy Health and Safety Compliance
+Clinical Research,Healthcare,Introduction to Clinical Research (edX Audit),Coursera Clinical Research Specialization,edX Clinical Research Professional Certificate,CCRP Certification (SOCRA)
+Mental Health Support,Healthcare,Mental Health First Aid (FutureLearn),Coursera Psychological First Aid,LinkedIn Learning Mental Health First Aid Fundamentals,Udemy Mental Health Support Training
+Robotics,Tech,Introduction to Robotics (edX Audit),Coursera Robotics Specialization,Udemy Robotics for Beginners,edX Robotics Professional Certificate
+Augmented Reality,Tech,AR Development Basics (YouTube - Unity3D),Udemy The Complete ARKit Developer Course,Coursera AR Development Specialization,edX AR and VR Development
+Big Data,Tech,Big Data Fundamentals (edX Audit),Coursera Big Data Specialization,Udemy Big Data and Hadoop Masterclass,edX Big Data Analytics Professional Certificate
+Quality Assurance,Tech,Software Testing Basics (YouTube - Software Testing Help),Udemy Software Testing Masterclass,Coursera Software Testing and Automation,ISTQB Certified Tester
+IT Support,Tech,Google IT Support Fundamentals (Coursera Audit),Google IT Support Professional Certificate,CompTIA A+ Certification,Coursera IT Support Specialist
+Stress Management,Non-Tech,Stress Management Techniques (Alison),LinkedIn Learning Managing Stress,Coursera Stress Management Strategies,Udemy Stress Management Masterclass
+Interpersonal Skills,Non-Tech,Interpersonal Communication (FutureLearn),Coursera Interpersonal Communication Specialization,LinkedIn Learning Interpersonal Skills Essentials,Udemy Interpersonal Skills Mastery
+Sales Skills,Business,Sales Training Basics (YouTube - The Sales Lion),LinkedIn Learning Sales Foundations,Coursera Sales Management Specialization,Udemy Sales Techniques Masterclass
+Lean Six Sigma,Business,Lean Six Sigma Introduction (Alison),Lean Six Sigma Green Belt Certification,Coursera Lean Six Sigma Specialization,Udemy Lean Six Sigma Black Belt
+Analytics,Marketing,Google Analytics for Beginners (Google Analytics Academy),Coursera Google Analytics Certification,Udemy Google Analytics Mastery,LinkedIn Learning Advanced Google Analytics
+Cryptocurrency,Finance,Cryptocurrency Basics (YouTube - Coin Bureau),Coursera Cryptocurrency and Blockchain Specialization,Udemy Cryptocurrency Trading Masterclass,edX Cryptocurrency and Blockchain Technology
+Epidemiology,Healthcare,Introduction to Epidemiology (Coursera Audit),Coursera Epidemiology in Public Health Practice,edX Epidemiology for Public Health,CPH Certification Prep (Udemy)
