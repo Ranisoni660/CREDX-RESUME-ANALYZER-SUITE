@@ -4,7 +4,7 @@ Team: Buzzers
 
     Rushikesh Gore
 
-    Ranisoni (You)
+    Ranisoni 
 
 Overview
 
