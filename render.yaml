@@ -4,10 +4,16 @@ services:
     env: python
     plan: free
     region: oregon
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python -m spacy download en_core_web_sm
     startCommand: gunicorn app:app
-    pythonVersion: "3.11.6"   # ← THIS IS THE GOLDEN LINE
+    pythonVersion: "3.11.6"
     disks:
       - name: uploads
         mountPath: /opt/render/project/src/uploads
         sizeGB: 1
+    envVars:
+      - key: NLTK_DATA
+        value: /opt/render/project/src/nltk_data
