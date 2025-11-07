@@ -1,23 +1,23 @@
 import pdfplumber
 import pandas as pd
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, render_template
 import re
 import os
 from werkzeug.utils import secure_filename
-import tempfile
 
 app = Flask(__name__)
 
-# === CONFIGURATION ===
-# Use persistent disk on Render/Railway, fallback to local
-if os.environ.get('RENDER') or os.environ.get('RAILWAY_STATIC_URL'):
-    UPLOAD_FOLDER = '/opt/render/project/src/uploads' if os.environ.get('RENDER') else '/app/uploads'
+# === AUTO DETECT ENVIRONMENT ===
+if os.environ.get('RENDER'):
+    UPLOAD_FOLDER = '/opt/render/project/src/uploads'
+elif os.environ.get('RAILWAY_STATIC_URL'):
+    UPLOAD_FOLDER = '/app/uploads'
 else:
     UPLOAD_FOLDER = 'uploads'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file
+app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024  # 32MB
 
 # === LOAD DATA ===
 def load_data():
@@ -26,12 +26,12 @@ def load_data():
         skills_courses = pd.read_csv('skills_courses.csv', on_bad_lines='skip', engine='python')
         return job_roles, skills_courses
     except Exception as e:
-        print(f"Error loading CSV files: {e}")
+        print(f"CSV load error: {e}")
         return pd.DataFrame(), pd.DataFrame()
 
 job_roles_df, skills_courses_df = load_data()
 
-# === PDF TEXT EXTRACTION ===
+# === PDF EXTRACTION ===
 def extract_text_from_pdf(pdf_path):
     text = ""
     try:
@@ -40,19 +40,22 @@ def extract_text_from_pdf(pdf_path):
                 page_text = page.extract_text()
                 if page_text:
                     text += page_text + "\n"
-        return text.lower()
+        return text.lower().strip()
     except Exception as e:
-        print(f"Error extracting text: {e}")
+        print(f"PDF error: {e}")
         return ""
 
-# === HELPER: Parse CSV fields ===
+# === HELPER ===
 def parse_field(field):
     if pd.isna(field) or not field:
         return []
     return [item.strip().lower() for item in str(field).split(',') if item.strip()]
 
-# === ANALYZE RESUME ===
+# === ANALYSIS ===
 def analyze_resume(resume_text, job_role, jd_text=""):
+    if job_roles_df.empty:
+        return None
+
     job_data = job_roles_df[job_roles_df['job_role'].str.lower() == job_role.lower()]
     if job_data.empty:
         return None
@@ -61,79 +64,53 @@ def analyze_resume(resume_text, job_role, jd_text=""):
     required_skills = parse_field(row['skills'])
     keywords = parse_field(row['keywords'])
 
-    analysis_text = resume_text
-    if jd_text:
-        analysis_text += " " + jd_text.lower()
+    full_text = resume_text + " " + jd_text.lower()
 
-    # Match skills & keywords (word boundaries)
-    matched_skills = [s for s in required_skills if re.search(r'\b' + re.escape(s) + r'\b', analysis_text)]
-    matched_keywords = [k for k in keywords if re.search(r'\b' + re.escape(k) + r'\b', analysis_text)]
+    matched_skills = [s for s in required_skills if re.search(r'\b' + re.escape(s) + r'\b', full_text)]
+    matched_keywords = [k for k in keywords if re.search(r'\b' + re.escape(k) + r'\b', full_text)]
     missing_skills = [s for s in required_skills if s not in matched_skills]
 
-    # Scoring
-    skill_score = (len(matched_skills) / len(required_skills) * 70) if required_skills else 0
-    keyword_score = (len(matched_keywords) / len(keywords) * 30) if keywords else 0
+    skill_score = (len(matched_skills) / max(len(required_skills), 1)) * 70
+    keyword_score = (len(matched_keywords) / max(len(keywords), 1)) * 30
     match_score = min(round(skill_score + keyword_score), 100)
-
-    recommendations = generate_recommendations(match_score, missing_skills)
-    courses = get_recommended_courses(missing_skills)
 
     return {
         'match_score': match_score,
         'matched_skills': matched_skills,
         'missing_skills': missing_skills,
         'keywords_used': matched_keywords,
-        'recommendations': recommendations,
-        'courses': courses,
+        'recommendations': generate_recommendations(match_score, missing_skills),
+        'courses': get_recommended_courses(missing_skills),
         'job_description': row.to_dict()
     }
 
-# === RECOMMENDATIONS ===
-def generate_recommendations(score, missing_skills):
+def generate_recommendations(score, missing):
     tips = [
-        "Add quantifiable achievements (e.g., 'Increased sales by 30%')",
-        "Use standard section headers: Experience, Education, Skills",
-        "Include 2–3 relevant projects with tech stack and results",
-        "Add certifications (e.g., AWS, Google Data Analytics)",
-        "Tailor resume to job description keywords",
-        "Keep resume to 1 page (or 2 for senior roles)",
-        "Use action verbs: Developed, Led, Optimized, Built"
+        "Add numbers to achievements (e.g., 'Boosted sales 40%')",
+        "Use exact job description keywords",
+        "Include GitHub/projects with links",
+        "Add relevant certifications",
+        "Keep formatting simple for ATS"
     ]
-
-    if score >= 90:
-        return ["Excellent match! Your resume is highly competitive."] + tips[:2]
-    elif score >= 75:
-        return [f"Great fit! Focus on: {', '.join(missing_skills[:2])}"] + tips[:4]
-    elif score >= 50:
-        return [f"Moderate match. Add these skills: {', '.join(missing_skills[:4])}"] + tips
+    if score >= 85:
+        return ["Excellent! Ready to apply."] + tips[:2]
+    elif score >= 70:
+        return [f"Strong — learn: {', '.join(missing[:3])}"] + tips[:3]
     else:
-        return [f"Needs improvement. Priority: {', '.join(missing_skills[:5] or ['core skills'])}",
-                "Consider rebuilding resume with job-specific keywords"] + tips
+        return [f"Add top skills: {', '.join(missing[:5] or ['Python, SQL'])}"] + tips
 
-# === COURSES ===
-def get_recommended_courses(missing_skills):
+def get_recommended_courses(missing):
     courses = {'free': [], 'paid': []}
-
-    # Soft skills
-    soft = skills_courses_df[skills_courses_df['sector'].str.contains('Non-Tech|Soft', na=False)]
-    for _, row in soft.iterrows():
-        if pd.notna(row.get('free_course')):
-            courses['free'].append({'skill': 'Communication & Leadership', 'course': row['free_course'], 'platform': 'Coursera'})
-        if pd.notna(row.get('paid_course_1')):
-            courses['paid'].append({'skill': 'Professional Skills', 'course': row['paid_course_1'], 'platform': 'LinkedIn'})
-
-    # Technical skills
-    for skill in missing_skills[:10]:
-        matches = skills_courses_df[skills_courses_df['skill'].str.lower() == skill.lower()]
-        if not matches.empty:
-            r = matches.iloc[0]
+    for skill in missing[:8]:
+        match = skills_courses_df[skills_courses_df['skill'].str.lower() == skill.lower()]
+        if not match.empty:
+            r = match.iloc[0]
             if pd.notna(r.get('free_course')):
-                courses['free'].append({'skill': skill.title(), 'course': r['free_course'], 'platform': r.get('sector', 'Online')})
-            for i in range(1, 5):
+                courses['free'].append({'skill': skill.title(), 'course': r['free_course']})
+            for i in range(1, 4):
                 pc = r.get(f'paid_course_{i}')
                 if pd.notna(pc):
-                    courses['paid'].append({'skill': skill.title(), 'course': pc, 'platform': r.get('sector', 'Premium')})
-
+                    courses['paid'].append({'skill': skill.title(), 'course': pc})
     return courses
 
 # === ROUTES ===
@@ -141,52 +118,50 @@ def get_recommended_courses(missing_skills):
 def index():
     return render_template('index.html')
 
-@app.route('/api/job_roles', methods=['GET'])
+@app.route('/api/job_roles')
 def get_job_roles():
-    categories = job_roles_df[['category', 'subcategory', 'job_role']].drop_duplicates()
-    return jsonify(categories.to_dict('records'))
+    if job_roles_df.empty:
+        return jsonify([])
+    data = job_roles_df[['category', 'subcategory', 'job_role']].drop_duplicates()
+    return jsonify(data.to_dict('records'))
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
     if 'resume' not in request.files:
-        return jsonify({'error': 'No resume file uploaded'}), 400
+        return jsonify({'error': 'No file uploaded'}), 400
 
-    resume_file = request.files['resume']
+    file = request.files['resume']
     job_role = request.form.get('job_role')
     jd_text = request.form.get('job_description', '')
 
-    if not job_role:
-        return jsonify({'error': 'Job role is required'}), 400
-    if resume_file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
-    if not resume_file.filename.lower().endswith('.pdf'):
-        return jsonify({'error': 'Only PDF files are allowed'}), 400
+    if not job_role or not file or file.filename == '':
+        return jsonify({'error': 'Missing data'}), 400
+    if not file.filename.lower().endswith('.pdf'):
+        return jsonify({'error': 'PDF only'}), 400
 
-    filename = secure_filename(resume_file.filename)
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    resume_file.save(filepath)
+    filename = secure_filename(file.filename)
+    path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(path)
 
     try:
-        resume_text = extract_text_from_pdf(filepath)
-        if len(resume_text.strip()) < 100:
-            return jsonify({'error': 'Could not extract text from PDF. Try a text-based PDF.'}), 400
+        text = extract_text_from_pdf(path)
+        if len(text) < 200:
+            return jsonify({'error': 'Could not read PDF text. Use text-based PDF.'}), 400
 
-        result = analyze_resume(resume_text, job_role, jd_text)
+        result = analyze_resume(text, job_role, jd_text)
         if not result:
-            return jsonify({'error': 'Job role not found in database'}), 404
+            return jsonify({'error': 'Job role not found'}), 404
 
         return jsonify(result)
 
     except Exception as e:
-        print(f"Analysis error: {e}")
-        return jsonify({'error': 'Analysis failed. Please try again.'}), 500
+        print(e)
+        return jsonify({'error': 'Server error'}), 500
     finally:
-        if os.path.exists(filepath):
-            try:
-                os.remove(filepath)
-            except:
-                pass
+        try:
+            os.remove(path)
+        except:
+            pass
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
