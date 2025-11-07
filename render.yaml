@@ -6,14 +6,13 @@ services:
     region: oregon
     buildCommand: |
       pip install --upgrade pip
-      pip install -r requirements.txt
-      python -m spacy download en_core_web_sm
+      pip install --no-cache-dir -r requirements.txt
+      python -c "import nltk; nltk.download('punkt', download_dir='nltk_data'); nltk.download('stopwords', download_dir='nltk_data')"
     startCommand: gunicorn app:app
-    pythonVersion: "3.11.6"
     disks:
       - name: uploads
         mountPath: /opt/render/project/src/uploads
         sizeGB: 1
-    envVars:
-      - key: NLTK_DATA
-        value: /opt/render/project/src/nltk_data
+      - name: nltk-data
+        mountPath: /opt/render/project/src/nltk_data
+        sizeGB: 1
